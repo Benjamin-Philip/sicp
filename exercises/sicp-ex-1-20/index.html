@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -94,93 +94,92 @@ the applicative-order evaluation?</p>
 <li>Applicative order evaluates immediately</li>
 </ul>
 <p>Here is the gcd code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(gcd a b)
-  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
-      a
-      (gcd b (remainder a b))))
-</code></pre></div><p>Since, normal order evaluates only after fully expanding, the functions get really nested.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(gcd a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      a
+</span></span><span style="display:flex;"><span>      (gcd b (remainder a b))))
+</span></span></code></pre></div><p>Since, normal order evaluates only after fully expanding, the functions get really nested.
 So, pardon any errors. Here&rsquo;s the normal order evaluation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(gcd <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">40</span>
-    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
-
-(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>) <span style="color:#ae81ff">0</span>)
-    (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
-    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 1 remainder is evaluated </span>
-    <span style="color:#ae81ff">6</span>
-    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
-
-(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) <span style="color:#ae81ff">0</span>)
-    (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))
-(gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))))
-
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 2 remainders are evaluated</span>
-    <span style="color:#ae81ff">4</span>
-    ((gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))))
-
-<span style="color:#75715e">;; This pattern continues until ..</span>
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">;; 7 remainders evaluated</span>
-    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
-               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
-    (gcd (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
-                    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
-                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))))
-         (remainder (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
-                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
-                    (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
-                               (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
-                                          (remainder <span style="color:#ae81ff">40</span>
-                                                     (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))))))
-<span style="color:#75715e">;Value: 2</span>
-
-</code></pre></div><p>The Applicative order is the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">
-(gcd <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">40</span>
-    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">40</span>
-    (gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)) <span style="color:#75715e">;; immediately evaluated</span>
-
-(gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">40</span>
-    (gcd <span style="color:#ae81ff">6</span> (remainder <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)))
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">40</span>
-    (gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>))
-
-(gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">6</span>
-    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)))
-
-(gcd <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">4</span>
-    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)))
-
-(gcd <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
-
-(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>)
-    <span style="color:#ae81ff">2</span>
-    (gcd <span style="color:#ae81ff">2</span> (remainder <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)))
-
-<span style="color:#75715e">;Value: 2</span>
-</code></pre></div><p>That&rsquo;s it. Hope it helps.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>) <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 1 remainder is evaluated </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))
+</span></span><span style="display:flex;"><span>(gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 2 remainders are evaluated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    ((gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;; This pattern continues until ..</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">;; 7 remainders evaluated</span>
+</span></span><span style="display:flex;"><span>    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
+</span></span><span style="display:flex;"><span>    (gcd (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
+</span></span><span style="display:flex;"><span>                    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))))
+</span></span><span style="display:flex;"><span>         (remainder (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
+</span></span><span style="display:flex;"><span>                    (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
+</span></span><span style="display:flex;"><span>                               (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>                                          (remainder <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>                                                     (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))))))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 2</span>
+</span></span></code></pre></div><p>The Applicative order is the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)) <span style="color:#75715e">;; immediately evaluated</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">6</span> (remainder <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(gcd <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    (gcd <span style="color:#ae81ff">2</span> (remainder <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 2</span>
+</span></span></code></pre></div><p>That&rsquo;s it. Hope it helps.</p>
 
 </div>
 
@@ -189,16 +188,14 @@ So, pardon any errors. Here&rsquo;s the normal order evaluation:</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

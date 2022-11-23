@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -76,8 +76,8 @@
   <p>This is the $12^{th}$ exercise in Sicp. In this Exercise,
 we compute pascal&rsquo;s Triangle.</p>
 <h1 id="the-question">The Question</h1>
-<p><strong>Exercise 1.12:</strong> The following pattern of numbers is called <em>Pascals' Triangle.</em></p>
-<p><img src="p-tri.gif" alt="Pascal&rsquo;s Triangle "></p>
+<p><strong>Exercise 1.12:</strong> The following pattern of numbers is called <em>Pascals&rsquo; Triangle.</em></p>
+<p><img src="p-tri.gif" alt="Pascal&amp;rsquo;s Triangle "></p>
 <p>The numbers at the edge of the triangle are all 1, and each number
 inside the triangle is the sum of the two numbers above it. Write
 a procedure that computes elements of Pascal’s triangle by means
@@ -95,7 +95,7 @@ able to compute a single element</p>
 <p>In order to compute an element of pascal&rsquo;s triangle, we need
 to be able to say <em>which</em> element you are talking about. For
 this we will use a notation based on the vertical and horizontal position.</p>
-<p><img src="p-tri-r.gif" alt="Pascal&rsquo;s Triangle"></p>
+<p><img src="p-tri-r.gif" alt="Pascal&amp;rsquo;s Triangle"></p>
 <p>Look at that 6. It is the 3rd element in 4th row.
 We will refer to it in our function like this:
 <code>(p 2 4)</code></p>
@@ -115,12 +115,12 @@ and <code>(p 2 3)</code>. From this we can conclude that
 the two elements are <code>(p (- col 1) (- row 1))</code> and
 <code>(p col (- row 1))</code></p>
 <p>We can now write this in scheme:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
-  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
-      <span style="color:#ae81ff">1</span>
-      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>))))))
-</code></pre></div><p>Let&rsquo;s now test it:</p>
-<pre><code>1 ]=&gt; (p 2 4)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>))))))
+</span></span></code></pre></div><p>Let&rsquo;s now test it:</p>
+<pre tabindex="0"><code>1 ]=&gt; (p 2 4)
 ;Value: 6
 </code></pre><p>And that&rsquo;s it! That&rsquo;s all there is to this question.</p>
 <h1 id="going-a-little-further">Going a little further</h1>
@@ -137,21 +137,21 @@ is zero.</p>
 <p><strong>Note:</strong> Please don&rsquo;t ask me to explain
 the exact syntax, I just found the appropriate functions
 for processing lists by searching for their list.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
-  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
-  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
-      row)
-  (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>)))
-</code></pre></div><p>We will also have to define <code>extend</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
-  (<span style="color:#66d9ef">if </span>(null? l)
-      xs
-      (cons (car l) (apply extend (cdr l) xs))))
-</code></pre></div><p>Add this to the end of your code. Let&rsquo;s test it:</p>
-<pre><code>1 ]=&gt; (row 4)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      row)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>)))
+</span></span></code></pre></div><p>We will also have to define <code>extend</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(null? l)
+</span></span><span style="display:flex;"><span>      xs
+</span></span><span style="display:flex;"><span>      (cons (car l) (apply extend (cdr l) xs))))
+</span></span></code></pre></div><p>Add this to the end of your code. Let&rsquo;s test it:</p>
+<pre tabindex="0"><code>1 ]=&gt; (row 4)
 
 ;Value: (1 4 6 4)
 </code></pre><p>Well that&rsquo;s working.</p>
@@ -165,73 +165,73 @@ The third is <code>1 4 10 20 35 56 84...</code> and it goes on.</p>
 but we can compute them with the help of pascal&rsquo;s triangle. Let&rsquo;s design a method
 for tetrahedral numbers. Look carefully in the above figures. In which cells do these
 sets occur in</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
-  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
-  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
-      list
-      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
-</code></pre></div><p>Let&rsquo;s test this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> ]<span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">tetra</span> <span style="color:#ae81ff">6</span>)
-
-<span style="color:#75715e">;Value: (1 3 6 10 15 21)</span>
-</code></pre></div><p>With the help with lamdas, you could make a wrapper script
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      list
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
+</span></span></code></pre></div><p>Let&rsquo;s test this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#ae81ff">1</span> ]<span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">tetra</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: (1 3 6 10 15 21)</span>
+</span></span></code></pre></div><p>With the help with lamdas, you could make a wrapper script
 for all the possible &ldquo;patterns&rdquo;.</p>
 <h2 id="the-triangle">The Triangle</h2>
 <p>We can now iterate and print all rows to <code>n</code>row.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
-  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
-  (<span style="color:#66d9ef">if </span>(= count n)
-      list
-      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> count)) (+ n <span style="color:#ae81ff">1</span>) count)))
-</code></pre></div><p>and testing:</p>
-<pre><code>1 ]=&gt; (tri 3)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= count n)
+</span></span><span style="display:flex;"><span>      list
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> count)) (+ n <span style="color:#ae81ff">1</span>) count)))
+</span></span></code></pre></div><p>and testing:</p>
+<pre tabindex="0"><code>1 ]=&gt; (tri 3)
 
 ;Value: ((1) (1 2) (1 3 3))
 </code></pre><p>Now that&rsquo;s your triangle. Want to beautify it? Well figure it out yourself!</p>
 <p>Here&rsquo;s the whole scheme file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
-  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
-      <span style="color:#ae81ff">1</span>
-      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>)) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>)))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
-  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
-  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
-      row
-      (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>))))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
-  (<span style="color:#66d9ef">if </span>(null? l)
-      xs
-      (cons (car l) (apply extend (cdr l) xs))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
-  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
-  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
-      list
-      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
-  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
-
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
-  (<span style="color:#66d9ef">if </span>(= count n)
-      list
-      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> n)) (+ n <span style="color:#ae81ff">1</span>) count)))
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>)) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>)))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      row
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(null? l)
+</span></span><span style="display:flex;"><span>      xs
+</span></span><span style="display:flex;"><span>      (cons (car l) (apply extend (cdr l) xs))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      list
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= count n)
+</span></span><span style="display:flex;"><span>      list
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> n)) (+ n <span style="color:#ae81ff">1</span>) count)))
+</span></span></code></pre></div>
 </div>
 
 
@@ -239,16 +239,14 @@ for all the possible &ldquo;patterns&rdquo;.</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

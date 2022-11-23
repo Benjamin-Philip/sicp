@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.98.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.33 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <meta name="google-site-verification" content="nheXvk7OS-14YJaq680OFiPOAynr2WDWiWisRvE25ao" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://benjamin-philip.github.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://benjamin-philip.github.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.33</h1>
+  <time datetime=2022-01-21T00:00:00Z class="post-date">Fri, Jan 21, 2022</time>
+  <p>This is the $33^{rd}$ exercise from Sicp. Here, we write an even more
+general version of <code>accumulate</code>.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.33:</strong> You can obtain an even more general version of
+<code>accumulate</code> <a href="/sicp/sicp-ex-1-32">Exercise 1.32</a> by introducing the
+notion of a <em>filter</em> on the terms to be combined. That is, combine
+only those terms derived from values in the range that satisfy a
+specified condition. The resulting <code>filtered-accumulate</code> abstraction
+takes the same arguments as accumulate, together with an additional
+predicate of one argument that specifies the filter. Write
+<code>fitered-accumulate</code> as a proceedure. Show how to express the
+following using <code>filtered-accumulate</code>:</p>
+<p>A) the sum of the squares of the prime numbers in the interval <code>a</code> to
+<code>b</code>(assuming that you have a <code>prime?</code> predicate already written)</p>
+<p>B) the product of all the positive integers less than <em>n</em> that are
+relatively prime to <em>n</em> (i.e., all positive integers <em>i</em> &lt; <em>n</em> such
+that GCD(<em>i</em>, <em>n</em>) = 1)</p>
+<h1 id="filtre-accumulate"><code>filtre-accumulate</code></h1>
+<p><code>filtre-accumulate</code> is basically <code>accumulate</code> but combine <code>(term a)</code>if a
+term satisfies a certain condition or combine the null-value with the
+next recursion. It will have an extra parameter called <code>filtre</code> which
+is the test we perform on every term.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      null-value
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">combiner</span> (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">filtre</span> a)
+</span></span><span style="display:flex;"><span>		    (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>		    null-value)
+</span></span><span style="display:flex;"><span>		(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span></code></pre></div><h1 id="part-a">Part A</h1>
+<p>This is rather simple as well. Here, we have <code>prime?</code> as <code>filtre</code>,
+<code>+</code> as <code>combiner</code> and <code>square</code> as term.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#75715e">;; some prerequisites</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">square</span> x)(* x x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      null-value
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">combiner</span> (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">filtre</span> a)
+</span></span><span style="display:flex;"><span>		    (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>		    null-value)
+</span></span><span style="display:flex;"><span>		(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;; functions for prime?</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">prime?</span> n)
+</span></span><span style="display:flex;"><span>   (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">smallest-divisor</span> n)
+</span></span><span style="display:flex;"><span>      (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">find-divisor</span> n test-divisor)
+</span></span><span style="display:flex;"><span>         (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">next</span> x)
+</span></span><span style="display:flex;"><span>            (<span style="color:#66d9ef">if </span>(= x <span style="color:#ae81ff">2</span>) <span style="color:#ae81ff">3</span> (+ x <span style="color:#ae81ff">2</span>)))
+</span></span><span style="display:flex;"><span>         (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">divides?</span> a b)
+</span></span><span style="display:flex;"><span>            (= (remainder b a) <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>         (<span style="color:#66d9ef">cond </span>((&gt; (<span style="color:#a6e22e">square</span> test-divisor) n) n)
+</span></span><span style="display:flex;"><span>               ((<span style="color:#a6e22e">divides?</span> test-divisor n) test-divisor)
+</span></span><span style="display:flex;"><span>               (<span style="color:#66d9ef">else </span>(<span style="color:#a6e22e">find-divisor</span> n (<span style="color:#a6e22e">next</span> test-divisor)))))
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">find-divisor</span> n <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>   (= n (<span style="color:#a6e22e">smallest-divisor</span> n)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;; sum-of-squares-of-primes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum-of-squares-of-primes</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">filtre-accumulate</span> prime? + <span style="color:#ae81ff">0</span> square a inc b))
+</span></span></code></pre></div><h2 id="testing">Testing</h2>
+<p>Let&rsquo;s take a few examples:</p>
+<ol>
+<li>$2^{2} + 3^{2} = 13$</li>
+<li>$2^{2} + 3^{2} + 5^{2} + 7^{2} = 87$</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">sum-of-squares-of-primes</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 13</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">sum-of-squares-of-primes</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 87</span>
+</span></span></code></pre></div><h1 id="part-b">Part B</h1>
+<p>Here, we need to find all the positve integers less than <code>b</code> that
+together form
+<a href="https://en.wikipedia.org/wiki/Coprime_integers">coprimes</a>.</p>
+<p>This is rather simple. We just use the <code>gcd</code> procedure given to us by
+the authors sometime before. If <code>(gcd a b)</code> equals to 1, it&rsquo;s coprime.
+If they are coprime, we multiply them.</p>
+<h2 id="coprime"><code>coprime?</code></h2>
+<p>Let&rsquo;s start by defining <code>coprime?</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(gcd a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      a
+</span></span><span style="display:flex;"><span>      (gcd b (remainder a b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">coprime?</span> a b)
+</span></span><span style="display:flex;"><span>  (= (gcd a b) <span style="color:#ae81ff">1</span>))
+</span></span></code></pre></div><p>Let&rsquo;s test it. Here are few numbers that have no common factors
+(coprimes):</p>
+<ol>
+<li>3, 4</li>
+<li>4, 5</li>
+<li>5, 6</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">coprime?</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: #t</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">coprime?</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: #t</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">coprime?</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: #t</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">coprime?</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: #f</span>
+</span></span></code></pre></div><h2 id="the-whole-picture">The whole picture</h2>
+<p>Now we can define <code>product-of-coprimes</code>. <code>product-of-coprimes</code> will
+have one parameter <code>b</code>. We will give 1 as <code>a</code> to
+<code>filtre-accumulate</code>. (All positive integers less than <em>n</em> remember ?)</p>
+<p><strong>Note:</strong> Here, <code>coprime?</code> will not have the second parameter as
+<code>filtre</code> is only given oneparameter that is <code>a</code>. So, I am going to
+access the value of <code>b</code> via lexical scoping.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      null-value
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">combiner</span> (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">filtre</span> a)
+</span></span><span style="display:flex;"><span>		    (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>		    null-value)
+</span></span><span style="display:flex;"><span>		(<span style="color:#a6e22e">filtre-accumulate</span> filtre combiner null-value term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> a )
+</span></span><span style="display:flex;"><span>  a) <span style="color:#75715e">;; identity</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(gcd a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      a
+</span></span><span style="display:flex;"><span>      (gcd b (remainder a b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-of-coprimes</span> b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">coprime?</span> a)
+</span></span><span style="display:flex;"><span>    (= (gcd a b) <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">filtre-accumulate</span> coprime? * <span style="color:#ae81ff">1</span> id <span style="color:#ae81ff">1</span> inc b))
+</span></span></code></pre></div><h2 id="testing-1">Testing</h2>
+<p>Here is a few test.</p>
+<ol>
+<li>Coprimes less than 3 are 2. So 2 is the product</li>
+<li>Coprimes less than 4 are 3. So 3 is the product</li>
+<li>Coprimes less than 5 are 2, 3, 4. So 24 is the product.</li>
+<li>Coprimes less than 10 are 3, 7, 9. So 189 is the product</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">product-of-coprimes</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-of-coprimes</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-of-coprimes</span> <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 24</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-of-coprimes</span> <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-of-coprimes</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 189</span>
+</span></span></code></pre></div><p>So there you go. Ex 1.33. Next we will work on Lamda the ultimate, and let.</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
+}
+</script>
+
+      
+  </body>
+</html>

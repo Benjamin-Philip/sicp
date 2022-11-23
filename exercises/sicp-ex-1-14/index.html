@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -100,21 +100,21 @@ arbitrarily large (we don&rsquo;t care about small input size).</p>
 explanation for <em>what</em> is considered a step. Therefore, I will try to
 give an explanation of what is my understanding.</p>
 <p>Here is an example with 1 atomic step:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>a (+ c b))
-</code></pre></div><p>It has a summation and an assignment. Another example in python:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-    <span style="color:#66d9ef">print</span>(i)
-</code></pre></div><p>This has <em>n</em> atomic steps as print will be run <em>n</em> times.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>a (+ c b))
+</span></span></code></pre></div><p>It has a summation and an assignment. Another example in python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span></code></pre></div><p>This has <em>n</em> atomic steps as print will be run <em>n</em> times.</p>
 <p>Consider this example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(n):
-        <span style="color:#66d9ef">print</span>(j)
-</code></pre></div><p>Here the number of atomic steps are $n^{2}$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        print(j)
+</span></span></code></pre></div><p>Here the number of atomic steps are $n^{2}$.</p>
 <p>Now consider <strong>this</strong> example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i, n):
-        <span style="color:#66d9ef">print</span>(j)
-</code></pre></div><p>If <em>n</em> was 5, in the first iteration, there would 5 steps. In the second, 4. In the third, 3 etc.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i, n):
+</span></span><span style="display:flex;"><span>        print(j)
+</span></span></code></pre></div><p>If <em>n</em> was 5, in the first iteration, there would 5 steps. In the second, 4. In the third, 3 etc.
 And thus we can form the general formula that the number of steps would be $\frac{n \times (n + 1)}{2}$
 If you calculate that formula, you will get $\frac{n^{2} + n}{2}$.</p>
 <h2 id="what-is-order-of-growth-of-steps">What is Order of Growth of Steps</h2>
@@ -137,16 +137,14 @@ Order of Growth is $\thetha(n)$</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

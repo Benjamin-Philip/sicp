@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -77,12 +77,12 @@
 when we we try to use a number as a procedure.</p>
 <h1 id="the-question">The Question</h1>
 <p><strong>Exercise 1.34:</strong> Suppose we define the procedure</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">f</span> g)
-  (<span style="color:#a6e22e">g</span> <span style="color:#ae81ff">2</span>))
-</code></pre></div><p>Then we have</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">f</span> square)
-<span style="color:#ae81ff">4</span>
-</code></pre></div><pre><code>(f (lamda (z) (* z (+ z 1))))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">f</span> g)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">g</span> <span style="color:#ae81ff">2</span>))
+</span></span></code></pre></div><p>Then we have</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">f</span> square)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><pre tabindex="0"><code>(f (lamda (z) (* z (+ z 1))))
 6
 </code></pre><p>What happens is we (perversely) ask the interpreter to evaluate the
 combination <code>(f f)</code> ? Explain.</p>
@@ -93,10 +93,10 @@ as the parameter 2.</p>
 evaluated.</p>
 <p>Let&rsquo;s use the substitution model and find out what happens when we
 pass the <code>f</code> as the parameter to itself:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">f</span> f)
-(<span style="color:#a6e22e">f</span> <span style="color:#ae81ff">2</span>)
-(<span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span>)
-</code></pre></div><p>As you can see, we finally try to use the integer 2 as a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">f</span> f)
+</span></span><span style="display:flex;"><span>(<span style="color:#a6e22e">f</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>As you can see, we finally try to use the integer 2 as a
 function. This will cause an error. In MIT Scheme at least, it returns
 the error &ldquo;The object 2 is not applicable&rdquo;.</p>
 
@@ -107,16 +107,14 @@ the error &ldquo;The object 2 is not applicable&rdquo;.</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

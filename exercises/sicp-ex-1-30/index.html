@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -80,13 +80,13 @@ version of `sum**.</p>
 recursion. The procedure can be rewritten so that the sum is performed
 iteratively. Show how to do this by filling in the missing expressions
 in the following definition:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
-    (<span style="color:#66d9ef">if </span><span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span>
-	<span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span>
-	(<span style="color:#a6e22e">iter</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> )))
-  (<span style="color:#a6e22e">iter</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> ))
-</code></pre></div><h1 id="the-answer">The Answer</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">if </span><span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span>
+</span></span><span style="display:flex;"><span>	(<span style="color:#a6e22e">iter</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> )))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">iter</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span> ))
+</span></span></code></pre></div><h1 id="the-answer">The Answer</h1>
 <p>This is a rather simple question so I am just gonna quickly give an
 explanation and an answer:</p>
 <h2 id="how-sum-works">How <code>sum</code> works</h2>
@@ -99,30 +99,30 @@ recursive version)</li>
 </ul>
 <h2 id="the-solution">The Solution</h2>
 <p>Knowing that, we can now write the iterative procedure:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
-    (<span style="color:#66d9ef">if </span>(&gt; a b)
-	result
-	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(+ result (<span style="color:#a6e22e">term</span> a)))))
-  (<span style="color:#a6e22e">iter</span> a a))
-</code></pre></div><h2 id="testing">Testing</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>	result
+</span></span><span style="display:flex;"><span>	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(+ result (<span style="color:#a6e22e">term</span> a)))))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">iter</span> a a))
+</span></span></code></pre></div><h2 id="testing">Testing</h2>
 <p>Here is what I got testing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-
-<span style="color:#75715e">;Value: id</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
-
-<span style="color:#75715e">;Value: inc</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum-int</span> a b)(<span style="color:#a6e22e">sum</span> id a inc b))
-
-<span style="color:#75715e">;Value: sum-int</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">sum-int</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e">;Value: 55</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: id</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: inc</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum-int</span> a b)(<span style="color:#a6e22e">sum</span> id a inc b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: sum-int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">sum-int</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 55</span>
+</span></span></code></pre></div>
 </div>
 
 
@@ -130,16 +130,14 @@ recursive version)</li>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

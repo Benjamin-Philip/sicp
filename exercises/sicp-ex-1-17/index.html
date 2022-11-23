@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -81,11 +81,11 @@ exponentiation by means of repeated multiplication. In a similar way, one can pe
 integer multiplication by means of repeated addition. The following multiplication
 procedure (in which it is assumed that our language can only add, not multiply) is analogous
 to the expt procedure:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(* a b)
-  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
-      <span style="color:#ae81ff">0</span>
-      (+ a (* a (- b <span style="color:#ae81ff">1</span>)))))
-</code></pre></div><p>This algorithm takes a number of steps that is linear to<code>b</code>. Now suppse
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(* a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>      (+ a (* a (- b <span style="color:#ae81ff">1</span>)))))
+</span></span></code></pre></div><p>This algorithm takes a number of steps that is linear to<code>b</code>. Now suppse
 we include with addition, operations <code>double</code>, which doubles and integer
 and <code>halve</code> which divides an (even) integer by 2.  Using these, design a
 multiplication procedure analogous to <code>fast-expt</code> that usess a logarithmic
@@ -107,35 +107,35 @@ We now know few things:</p>
 <p>Let&rsquo;s make a recursive procedure from that.</p>
 <h1 id="the-answer">The Answer</h1>
 <p>This is how we check if even:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(even? n)
-  (= (remainder n <span style="color:#ae81ff">2</span>) <span style="color:#ae81ff">0</span>))
-</code></pre></div><p>This is how we double:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">double</span> n)
-  (+ n n))
-</code></pre></div><p>This is how we halve:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">halve</span> n)
-  (/ n <span style="color:#ae81ff">2</span>))
-</code></pre></div><p>This is the recursive <code>fast-mult</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>fast-mult (<span style="color:#a6e22e">b</span> n)
-  (<span style="color:#66d9ef">cond </span>((= n <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">0</span>)
-	((even? n) (<span style="color:#a6e22e">double</span> (<span style="color:#a6e22e">fast-mult</span> b (<span style="color:#a6e22e">halve</span> n))))
-	(<span style="color:#66d9ef">else </span>(+ b (<span style="color:#a6e22e">fast-mult</span> b (- n <span style="color:#ae81ff">1</span>))))))
-</code></pre></div><p>And here&rsquo;s the entire thing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(even? n)
-  (= (remainder n <span style="color:#ae81ff">2</span>) <span style="color:#ae81ff">0</span>))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">double</span> n)
-  (+ n n))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">halve</span> n)
-  (/ n <span style="color:#ae81ff">2</span>))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fast-mult</span> b n)
-  (<span style="color:#66d9ef">cond </span>((= n <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">0</span>)
-	((even? n) (<span style="color:#a6e22e">double</span> (<span style="color:#a6e22e">fast-mult</span> b (<span style="color:#a6e22e">halve</span> n))))
-	(<span style="color:#66d9ef">else </span>(+ b (<span style="color:#a6e22e">fast-mult</span> b (- n <span style="color:#ae81ff">1</span>))))))
-</code></pre></div><p>And upon testing $ 2 \times 8 $:</p>
-<pre><code>1 ]=&gt; (fast-mult 2 8)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(even? n)
+</span></span><span style="display:flex;"><span>  (= (remainder n <span style="color:#ae81ff">2</span>) <span style="color:#ae81ff">0</span>))
+</span></span></code></pre></div><p>This is how we double:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">double</span> n)
+</span></span><span style="display:flex;"><span>  (+ n n))
+</span></span></code></pre></div><p>This is how we halve:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">halve</span> n)
+</span></span><span style="display:flex;"><span>  (/ n <span style="color:#ae81ff">2</span>))
+</span></span></code></pre></div><p>This is the recursive <code>fast-mult</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>fast-mult (<span style="color:#a6e22e">b</span> n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">cond </span>((= n <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	((even? n) (<span style="color:#a6e22e">double</span> (<span style="color:#a6e22e">fast-mult</span> b (<span style="color:#a6e22e">halve</span> n))))
+</span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">else </span>(+ b (<span style="color:#a6e22e">fast-mult</span> b (- n <span style="color:#ae81ff">1</span>))))))
+</span></span></code></pre></div><p>And here&rsquo;s the entire thing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(even? n)
+</span></span><span style="display:flex;"><span>  (= (remainder n <span style="color:#ae81ff">2</span>) <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">double</span> n)
+</span></span><span style="display:flex;"><span>  (+ n n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">halve</span> n)
+</span></span><span style="display:flex;"><span>  (/ n <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fast-mult</span> b n)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">cond </span>((= n <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	((even? n) (<span style="color:#a6e22e">double</span> (<span style="color:#a6e22e">fast-mult</span> b (<span style="color:#a6e22e">halve</span> n))))
+</span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">else </span>(+ b (<span style="color:#a6e22e">fast-mult</span> b (- n <span style="color:#ae81ff">1</span>))))))
+</span></span></code></pre></div><p>And upon testing $ 2 \times 8 $:</p>
+<pre tabindex="0"><code>1 ]=&gt; (fast-mult 2 8)
 
 ;Value: 16
 </code></pre><p>That&rsquo;s it. A really simple procedure right? Tell us your opinion in the commnets below.</p>
@@ -147,16 +147,14 @@ We now know few things:</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

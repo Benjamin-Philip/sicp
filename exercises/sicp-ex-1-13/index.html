@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -99,10 +99,10 @@ definition of the Fibonacci sequence.</p>
 <p>So let us first substitute the values with their definitions</p>
 <p>$$
 \begin{align}
-\frac{\varphi^{n} - \psi^{n}}{\sqrt[]{5}} &amp;= \frac{\varphi^{n - 1} - \psi^{n - 1}}{\sqrt[]{5}} + \frac{\varphi^{n - 2} - \psi^{n - 2}}{\sqrt[]{5}} \<br>
-\varphi^{n} - \psi^{n} &amp;= \varphi^{n - 1} - \psi^{n - 1} + \varphi^{n - 2} - \psi^{n - 2} \<br>
-&amp;=\frac{\varphi^{n}}{\varphi} - \frac{\psi^{n}}{\psi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi^{2}} \<br>
-&amp;=\frac{\varphi^{n}}{\varphi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi} - \frac{\psi^{n}}{\psi^{2}} \<br>
+\frac{\varphi^{n} - \psi^{n}}{\sqrt[]{5}} &amp;= \frac{\varphi^{n - 1} - \psi^{n - 1}}{\sqrt[]{5}} + \frac{\varphi^{n - 2} - \psi^{n - 2}}{\sqrt[]{5}} \
+\varphi^{n} - \psi^{n} &amp;= \varphi^{n - 1} - \psi^{n - 1} + \varphi^{n - 2} - \psi^{n - 2} \
+&amp;=\frac{\varphi^{n}}{\varphi} - \frac{\psi^{n}}{\psi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi^{2}} \
+&amp;=\frac{\varphi^{n}}{\varphi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi} - \frac{\psi^{n}}{\psi^{2}} \
 &amp;=\varphi^{n}\bigg(\frac{1}{\varphi} + \frac{1}{\varphi^{2}}\bigg) - \psi^{n}\bigg(\frac{1}{\psi} + \frac{1}{\psi^{2}} \bigg)
 \end{align}
 $$</p>
@@ -110,12 +110,12 @@ $$</p>
 are equal to one. Let&rsquo;s prove that using the values of $\varphi$ and $\psi$:</p>
 <p>$$
 \begin{align}
-\varphi^{n} - \psi^{n} &amp;= \varphi^{n}\bigg(\frac{1}{(1 + \sqrt[]{5})/2} + \frac{1}{((1 + \sqrt[]{5})/2)^{2}}\bigg) - \psi^{n}\bigg(\frac{1}{(1 - \sqrt[]{5})/2} + \frac{1}{((1 - \sqrt[]{5})/2)^{2}} \bigg) \<br>
-&amp;= \varphi^{n}\bigg(\frac{2}{1 + \sqrt[]{5}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2}{1 - \sqrt[]{5}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
-&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})}{(1 + \sqrt[]{5})^{2}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5})}{(1 - \sqrt[]{5})^{2}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
-&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})+ 4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5}) + 4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
-&amp;= \varphi^{n}\bigg(\frac{2 + 2\sqrt[]{5} + 4}{1 + 5 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{2 + 4 - 2\sqrt[]{5}}{1 + 5 - 2\sqrt[]{5}^{2}} \bigg) \<br>
-&amp;= \varphi^{n}\bigg(\frac{6 + 2\sqrt[]{5}}{6 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{6 - 2\sqrt[]{5}}{6 - 2\sqrt[]{5}^{2}} \bigg) \<br>
+\varphi^{n} - \psi^{n} &amp;= \varphi^{n}\bigg(\frac{1}{(1 + \sqrt[]{5})/2} + \frac{1}{((1 + \sqrt[]{5})/2)^{2}}\bigg) - \psi^{n}\bigg(\frac{1}{(1 - \sqrt[]{5})/2} + \frac{1}{((1 - \sqrt[]{5})/2)^{2}} \bigg) \
+&amp;= \varphi^{n}\bigg(\frac{2}{1 + \sqrt[]{5}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2}{1 - \sqrt[]{5}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \
+&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})}{(1 + \sqrt[]{5})^{2}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5})}{(1 - \sqrt[]{5})^{2}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \
+&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})+ 4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5}) + 4}{(1 - \sqrt[]{5})^{2}} \bigg) \
+&amp;= \varphi^{n}\bigg(\frac{2 + 2\sqrt[]{5} + 4}{1 + 5 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{2 + 4 - 2\sqrt[]{5}}{1 + 5 - 2\sqrt[]{5}^{2}} \bigg) \
+&amp;= \varphi^{n}\bigg(\frac{6 + 2\sqrt[]{5}}{6 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{6 - 2\sqrt[]{5}}{6 - 2\sqrt[]{5}^{2}} \bigg) \
 \varphi^{n} - \psi^{n}&amp;=\varphi^{n} - \psi^{n} \
 \end{align}
 $$</p>
@@ -132,9 +132,9 @@ So let&rsquo;s re-arrange the equation:</p>
 <p>Look at the previous equation that we proved:</p>
 <p>$$
 \begin{align}
-Fib(n) &amp;= (\varphi^{n} − \psi^{n})/\sqrt[]{5} \<br>
-&amp;= \frac{\varphi^{n}}{\sqrt[]{5}} - \frac{\psi^{n}}{\sqrt[]{5}} \<br>
-Fib(n) - \frac{\varphi^{n}}{\sqrt[]{5}} &amp;= - \frac{\psi^{n}}{\sqrt[]{5}} \<br>
+Fib(n) &amp;= (\varphi^{n} − \psi^{n})/\sqrt[]{5} \
+&amp;= \frac{\varphi^{n}}{\sqrt[]{5}} - \frac{\psi^{n}}{\sqrt[]{5}} \
+Fib(n) - \frac{\varphi^{n}}{\sqrt[]{5}} &amp;= - \frac{\psi^{n}}{\sqrt[]{5}} \
 \end{align}
 $$</p>
 <p>From that we derive that all we need to do is to prove that
@@ -158,16 +158,14 @@ $$ \psi^{n} \leq \frac{\sqrt[]{5}}{2} $$</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

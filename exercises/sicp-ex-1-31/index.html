@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -94,72 +94,72 @@ process, write a recursive process.</p>
 <p><code>product</code> is basically sum, but instead of summing, we multiply. So
 all we need to do is replace &ldquo;+&rdquo; with &ldquo;*&rdquo; and &ldquo;0&rdquo; with 1.</p>
 <p>The recursive <code>sum</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">0</span>
-      (+ (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">sum</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-</code></pre></div><p>The recursive <code>product</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-</code></pre></div><p>The iterative <code>sum</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
-    (<span style="color:#66d9ef">if </span>(&gt; a b)
-	result
-	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(+ result (<span style="color:#a6e22e">term</span> a)))))
-  (<span style="color:#a6e22e">iter</span> a a))
-</code></pre></div><p>The iterative <code>product</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
-    (<span style="color:#66d9ef">if </span>(&gt; a b)
-	result
-	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(* result (<span style="color:#a6e22e">term</span> a)))))
-  (<span style="color:#a6e22e">iter</span> a a))
-</code></pre></div><h1 id="part-a">Part A</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>      (+ (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">sum</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span></code></pre></div><p>The recursive <code>product</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span></code></pre></div><p>The iterative <code>sum</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>	result
+</span></span><span style="display:flex;"><span>	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(+ result (<span style="color:#a6e22e">term</span> a)))))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">iter</span> a a))
+</span></span></code></pre></div><p>The iterative <code>product</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>	result
+</span></span><span style="display:flex;"><span>	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(* result (<span style="color:#a6e22e">term</span> a)))))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">iter</span> a a))
+</span></span></code></pre></div><h1 id="part-a">Part A</h1>
 <p>Now that we have <code>product</code>, we can define <code>factorial</code> and approximate
 $\pi$.</p>
 <h2 id="factorial"><code>factorial</code></h2>
 <p>Factorial is similar to the <code>sum-integers</code> the authors showed us. It
 is essentially the product of a range of integers as opposed to the sum
 of a range.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">factorial</span> x)
-  (<span style="color:#a6e22e">product</span> id <span style="color:#ae81ff">1</span> inc x))
-</code></pre></div><p>On testing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">2</span>)
-
-<span style="color:#75715e">;Value: 2</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">3</span>)
-
-<span style="color:#75715e">;Value: 6</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">20</span>)
-
-<span style="color:#75715e">;Value: 2432902008176640000</span>
-</code></pre></div><h2 id="aproximating-pi">Aproximating $\pi$</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">factorial</span> x)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">product</span> id <span style="color:#ae81ff">1</span> inc x))
+</span></span></code></pre></div><p>On testing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 2432902008176640000</span>
+</span></span></code></pre></div><h2 id="aproximating-pi">Aproximating $\pi$</h2>
 <p>This was the formula given to us:</p>
 <p>$$ \frac{\pi}{4} = \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot
 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} $$</p>
 <p>We can rewrite it as this:</p>
 <p>$$
 \begin{align}
-\frac{\pi}{4} &amp;= \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \<br>
-\pi &amp;= 4 \times \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \<br>
-&amp;= 4 \times 2 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \<br>
-&amp;= 8 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \<br>
+\frac{\pi}{4} &amp;= \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \
+\pi &amp;= 4 \times \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \
+&amp;= 4 \times 2 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \
+&amp;= 8 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \
 \end{align}
 $$</p>
 <h2 id="writing-a-procedure-to-find-the-fraction">Writing a Procedure to find the fraction</h2>
@@ -167,71 +167,71 @@ $$</p>
 a range, incrementing by 2. This is similar to the factorial
 implementation, except that we supply the &ldquo;ending point&rdquo; and we
 increment by 2.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
-  (<span style="color:#a6e22e">product</span> id a inc b))
-</code></pre></div><h3 id="testing-the-above-procedure">Testing the above procedure:</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">product</span> id a inc b))
+</span></span></code></pre></div><h3 id="testing-the-above-procedure">Testing the above procedure:</h3>
 <p>Testing the procedure proves that it works prefectly fine:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">7</span>)
-
-<span style="color:#75715e">;Value: 105</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">8</span>)
-
-<span style="color:#75715e">;Value: 192</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>)
-
-<span style="color:#75715e">;Value: 945</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e">;Value: 480</span>
-</code></pre></div><p>However:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e">;Value: 945</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">11</span>)
-
-<span style="color:#75715e">;Value: 3840</span>
-</code></pre></div><p>We can&rsquo;t have odd and even integers together. So our program is not
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 105</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 192</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 945</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 480</span>
+</span></span></code></pre></div><p>However:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 945</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">11</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3840</span>
+</span></span></code></pre></div><p>We can&rsquo;t have odd and even integers together. So our program is not
 foolproof:</p>
 <p>We can however, implement a wrapper to the procedure to deal with this.</p>
 <h3 id="writing-a-wrapper-for-our-procedure">Writing a wrapper for our procedure</h3>
 <p>I chose to favour <code>b</code>. So, if <code>a</code> is of the opposite type, I
 incremented <code>a</code> by 1. This how everything looks like in the end:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
-  (<span style="color:#a6e22e">product</span> id a inc b))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
-  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
-      (<span style="color:#a6e22e">product-range</span> a b)
-      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
-</code></pre></div><p>and testing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">4</span>)
-
-<span style="color:#75715e">;Value: 8</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)
-
-<span style="color:#75715e">;Value: 105</span>
-</code></pre></div><p>Great! It works!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">product</span> id a inc b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
+</span></span></code></pre></div><p>and testing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 105</span>
+</span></span></code></pre></div><p>Great! It works!</p>
 <h2 id="writing-a-procedure-to-a-approximate-pi">Writing a procedure to a approximate $\pi$</h2>
 <p>Now that we have a got a script to find the product of a range, we can
 now write a procedure to approximate $\pi$.</p>
@@ -258,108 +258,107 @@ to make an integer to float conversion.</p>
 </li>
 </ol>
 <p>Here is the entire script in the end:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2.0</span>))
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1.0</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-p
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
-  (<span style="color:#a6e22e">product</span> id a inc b))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
-  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
-      (<span style="color:#a6e22e">product-range</span> a b)
-      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1.0</span>) b)))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">pi</span> n)
-  (/ (* (<span style="color:#a6e22e">square</span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2.0</span>)))
-	<span style="color:#ae81ff">8.0</span>
-	(<span style="color:#66d9ef">if </span>(even? n)
-	    n
-	    (+ n <span style="color:#ae81ff">1.0</span>)))
-   (<span style="color:#a6e22e">square</span> (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1.0</span>)))))
-</code></pre></div><h3 id="testing">Testing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2.0</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>p
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">product</span> id a inc b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1.0</span>) b)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">pi</span> n)
+</span></span><span style="display:flex;"><span>  (/ (* (<span style="color:#a6e22e">square</span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2.0</span>)))
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">8.0</span>
+</span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">if </span>(even? n)
+</span></span><span style="display:flex;"><span>	    n
+</span></span><span style="display:flex;"><span>	    (+ n <span style="color:#ae81ff">1.0</span>)))
+</span></span><span style="display:flex;"><span>   (<span style="color:#a6e22e">square</span> (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1.0</span>)))))
+</span></span></code></pre></div><h3 id="testing">Testing</h3>
 <p>So far it has been great.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ <span style="color:#ae81ff">22.00</span> <span style="color:#ae81ff">7.00</span>) <span style="color:#75715e">;; This is the value of pi</span>
-
-<span style="color:#75715e">;Value: 3.142857142857143</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e">;Value: 3.3023935500125976</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
-
-<span style="color:#75715e">;Value: 3.1573396892175696</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">150</span>)
-
-<span style="color:#75715e">;Value: 3.1520820239779646</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">170</span>)
-
-<span style="color:#75715e">;Value: 3.1508461800759857</span>
-</code></pre></div><p>However:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">185</span>)
-
-It<span style="color:#e6db74">&#39;s</span> been nice interacting with you!
-Press C-c C-z to bring me back<span style="color:#f92672">.</span>
-</code></pre></div><p>By the time we cross 170, we crash. Though, I am not sure why this is
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ <span style="color:#ae81ff">22.00</span> <span style="color:#ae81ff">7.00</span>) <span style="color:#75715e">;; This is the value of pi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.142857142857143</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.3023935500125976</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.1573396892175696</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">150</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.1520820239779646</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">170</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.1508461800759857</span>
+</span></span></code></pre></div><p>However:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">185</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>It<span style="color:#e6db74">&#39;s</span> been nice interacting with you!
+</span></span><span style="display:flex;"><span>Press C-c C-z to bring me back<span style="color:#f92672">.</span>
+</span></span></code></pre></div><p>By the time we cross 170, we crash. Though, I am not sure why this is
 happening (probably the float is becoming to large).</p>
 <h2 id="optimizing-pi">Optimizing <code>pi</code></h2>
 <p>Instead of computing the square of both the numerator and denominator
 and then dividing, we can divide and then square, and then multiplying
 by 8.0. We can also replace most of the floats with integers.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
-  (<span style="color:#66d9ef">if </span>(&gt; a b)
-      <span style="color:#ae81ff">1</span>
-      (* (<span style="color:#a6e22e">term</span> a)
-         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
-  (<span style="color:#a6e22e">product</span> id a inc b))
-
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
-  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
-      (<span style="color:#a6e22e">product-range</span> a b)
-      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
-
-(<span style="color:#a6e22e">define</span>(<span style="color:#a6e22e">pi</span> n)
-  (* (<span style="color:#a6e22e">square</span> (/ (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2</span>))
-	      (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1</span>))))
-	<span style="color:#ae81ff">8.0</span>
-	(<span style="color:#66d9ef">if </span>(even? n)
-	    n
-	    (+ n <span style="color:#ae81ff">1.0</span>))))
-
-</code></pre></div><p>testing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ <span style="color:#ae81ff">22.0</span> <span style="color:#ae81ff">7.0</span>) <span style="color:#75715e">;; This is the value of pi</span>
-
-<span style="color:#75715e">;Value: 3.142857142857143</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e">;Value: 3.3023935500125976</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
-
-<span style="color:#75715e">;Value: 3.1573396892175656</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">1000</span>)
-
-<span style="color:#75715e">;Value: 3.143163842419198</span>
-
-<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100000</span>)
-
-<span style="color:#75715e">;Value: 3.1416083615923305</span>
-</code></pre></div><p>However, too high a value</p>
-<pre><code>1 (user) =&gt; (pi 100000000)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(&gt; a b)
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      (* (<span style="color:#a6e22e">term</span> a)
+</span></span><span style="display:flex;"><span>         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">product</span> id a inc b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> a b)
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#a6e22e">define</span>(<span style="color:#a6e22e">pi</span> n)
+</span></span><span style="display:flex;"><span>  (* (<span style="color:#a6e22e">square</span> (/ (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>	      (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1</span>))))
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">8.0</span>
+</span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">if </span>(even? n)
+</span></span><span style="display:flex;"><span>	    n
+</span></span><span style="display:flex;"><span>	    (+ n <span style="color:#ae81ff">1.0</span>))))
+</span></span></code></pre></div><p>testing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ <span style="color:#ae81ff">22.0</span> <span style="color:#ae81ff">7.0</span>) <span style="color:#75715e">;; This is the value of pi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.142857142857143</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.3023935500125976</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.1573396892175656</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.143163842419198</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 3.1416083615923305</span>
+</span></span></code></pre></div><p>However, too high a value</p>
+<pre tabindex="0"><code>1 (user) =&gt; (pi 100000000)
 
 ;Aborting!: maximum recursion depth exceeded
 </code></pre><p>If you look carefully, you will notice that the <em><strong>depth</strong></em> has been
@@ -375,16 +374,14 @@ pi is rather inefficient)</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

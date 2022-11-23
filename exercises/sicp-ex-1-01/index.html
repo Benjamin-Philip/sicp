@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -91,27 +91,27 @@ editing.</p>
 <p><strong>Exercise 1.01:</strong> Below is a sequence of expressions. What is the result
 printed by the interpreter in response to each expression? Assume that
 the sequence is to be evaluated in the order in which presented.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">10</span>
-(+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
-(- <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">1</span>)
-(/ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)
-(+ (* <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span>) (- <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">6</span>))
-(<span style="color:#66d9ef">define </span>a <span style="color:#ae81ff">3</span>)
-(<span style="color:#66d9ef">define </span>b (+ a <span style="color:#ae81ff">1</span>))
-(+ a b (* a b))
-(= a b)
-(<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">and </span>(&gt; b a) (&lt; b (* a b)))
-    b
-    a)
-(<span style="color:#66d9ef">cond </span>((= a <span style="color:#ae81ff">4</span>) <span style="color:#ae81ff">6</span>)
-      ((= b <span style="color:#ae81ff">4</span>) (+ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">7</span> a))
-      (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">25</span>))
-(+ <span style="color:#ae81ff">2</span> (<span style="color:#66d9ef">if </span>(&gt; b a) b a))
-(* (<span style="color:#a6e22e">cond</span>) ((&gt; a b) a)
-          ((&lt; a b) b)
-          (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">-1</span>))
-   (+ a <span style="color:#ae81ff">1</span>)
-</code></pre></div><h1 id="my-thoughts">My Thoughts</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>(+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>(- <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>(/ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>(+ (* <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span>) (- <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>a <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>b (+ a <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>(+ a b (* a b))
+</span></span><span style="display:flex;"><span>(= a b)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">and </span>(&gt; b a) (&lt; b (* a b)))
+</span></span><span style="display:flex;"><span>    b
+</span></span><span style="display:flex;"><span>    a)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">cond </span>((= a <span style="color:#ae81ff">4</span>) <span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>      ((= b <span style="color:#ae81ff">4</span>) (+ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">7</span> a))
+</span></span><span style="display:flex;"><span>      (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">25</span>))
+</span></span><span style="display:flex;"><span>(+ <span style="color:#ae81ff">2</span> (<span style="color:#66d9ef">if </span>(&gt; b a) b a))
+</span></span><span style="display:flex;"><span>(* (<span style="color:#a6e22e">cond</span>) ((&gt; a b) a)
+</span></span><span style="display:flex;"><span>          ((&lt; a b) b)
+</span></span><span style="display:flex;"><span>          (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">-1</span>))
+</span></span><span style="display:flex;"><span>   (+ a <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><h1 id="my-thoughts">My Thoughts</h1>
 <p>So far, the authors have been explaining about the basic syntax of
 scheme. If you are reading this, you most likely also read SICP till
 this exercise. So I am not gonna speak much about it, but make a table
@@ -191,16 +191,14 @@ with SICP so far!</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

@@ -14,7 +14,7 @@
       
       <guid>https://benjamin-philip.github.io/sicp/examples/example-testing-for-primality/</guid>
       <description>This is section describes of methods for checking whether a number n is prime or not. One with order of growth $\theta(\sqrt[]{n})$ and another of growth $\theta(\log n)$.
-The First method A common way to check if a number is prime or not is by finding all the factors of that number. Take the number 2. Its&#39; factors are 1 and 2. Thus it is prime. Or take 6. It can be expressed as $\times[2][3]3$ or $\times[6][1]$.</description>
+The First method A common way to check if a number is prime or not is by finding all the factors of that number. Take the number 2. Its&amp;rsquo; factors are 1 and 2. Thus it is prime. Or take 6. It can be expressed as $\times[2][3]3$ or $\times[6][1]$.</description>
     </item>
     
     <item>

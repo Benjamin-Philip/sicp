@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -86,25 +86,25 @@ procedure.</p>
 representation in float.</p>
 <p>All we now need to do is use the <code>fixed-point</code> function and pass it a <code>lambda</code>
 of the function $1 + 1/x$</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#75715e">;; fixed-point function</span>
-(<span style="color:#66d9ef">define </span>tolerance <span style="color:#ae81ff">0.00001</span>)
-(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fixed-point</span> f first-guess)
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">close-enough?</span> v1 v2)
-    (&lt; (abs (- v1 v2))
-       tolerance))
-  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">try</span> guess)
-    (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">next</span> (<span style="color:#a6e22e">f</span> guess)))
-      (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">close-enough?</span> guess next)
-          next 
-          (<span style="color:#a6e22e">try</span> next))))
-  (<span style="color:#a6e22e">try</span> first-guess))
-</code></pre></div><p>We shall use 1 as the initial guess. The following is the lambda</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">x</span>)(+ <span style="color:#ae81ff">1</span> (/ <span style="color:#ae81ff">1</span> x)))
-</code></pre></div><p>And testing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">fixed-point</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">x</span>)(+ <span style="color:#ae81ff">1</span> (/ <span style="color:#ae81ff">1</span> x))) <span style="color:#ae81ff">1.0</span>)
-
-<span style="color:#75715e">;Value: 1.6180327868852458</span>
-</code></pre></div><p>There you go! That wasn&rsquo;t too complicated was it ?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#75715e">;; fixed-point function</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>tolerance <span style="color:#ae81ff">0.00001</span>)
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fixed-point</span> f first-guess)
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">close-enough?</span> v1 v2)
+</span></span><span style="display:flex;"><span>    (&lt; (abs (- v1 v2))
+</span></span><span style="display:flex;"><span>       tolerance))
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">try</span> guess)
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">next</span> (<span style="color:#a6e22e">f</span> guess)))
+</span></span><span style="display:flex;"><span>      (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">close-enough?</span> guess next)
+</span></span><span style="display:flex;"><span>          next 
+</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">try</span> next))))
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">try</span> first-guess))
+</span></span></code></pre></div><p>We shall use 1 as the initial guess. The following is the lambda</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">x</span>)(+ <span style="color:#ae81ff">1</span> (/ <span style="color:#ae81ff">1</span> x)))
+</span></span></code></pre></div><p>And testing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(<span style="color:#a6e22e">fixed-point</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">x</span>)(+ <span style="color:#ae81ff">1</span> (/ <span style="color:#ae81ff">1</span> x))) <span style="color:#ae81ff">1.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">;Value: 1.6180327868852458</span>
+</span></span></code></pre></div><p>There you go! That wasn&rsquo;t too complicated was it ?</p>
 
 </div>
 
@@ -113,16 +113,14 @@ of the function $1 + 1/x$</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 

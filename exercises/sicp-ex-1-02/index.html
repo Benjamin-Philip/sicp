@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.98.0" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2022. All rights reserved. </p>
   </div>
 </aside>
 
@@ -82,18 +82,18 @@ It&rsquo;s basically change mathematical notation to prefix.</p>
 <p>Like I mentioned before, basically, change mathematical notation to prefix.</p>
 <h1 id="the-answer">The Answer</h1>
 <p>The first thing that happens is the division. So lets start with that:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ numerator denominator)
-</code></pre></div><p>Let&rsquo;s continue with what happens in the numerator:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ numerator denominator)
+</span></span></code></pre></div><p>Let&rsquo;s continue with what happens in the numerator:</p>
 <p>That is 5 + 4 + parentheses. So our equation becomes:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> ()) denominator)
-</code></pre></div><p>Now what happens in the brackets? 2 - parentheses<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> ()) denominator)
+</span></span></code></pre></div><p>Now what happens in the brackets? 2 - parentheses<br>
 This becomes:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> ()))denominator)
-</code></pre></div><p>Continuing with this cycle, we soon get:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>))))) denominator)
-</code></pre></div><p>Doing the same for the denominator, we get:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>)))))(* <span style="color:#ae81ff">3</span> (- <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)(- <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)))
-</code></pre></div><p>And that&rsquo;s it! Now that&rsquo;s it! Remember though that you will to have follow
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> ()))denominator)
+</span></span></code></pre></div><p>Continuing with this cycle, we soon get:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>))))) denominator)
+</span></span></code></pre></div><p>Doing the same for the denominator, we get:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span>(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>)))))(* <span style="color:#ae81ff">3</span> (- <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)(- <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)))
+</span></span></code></pre></div><p>And that&rsquo;s it! Now that&rsquo;s it! Remember though that you will to have follow
 <a href="https://en.wikipedia.org/wiki/Order_of_operations">BODMAS</a> while translating, and BODMAS is a
 mess! Maybe we should all switch to Prefix or <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a>?
 Tell us what you think in the comments below!</p>
@@ -105,16 +105,14 @@ Tell us what you think in the comments below!</p>
 
       
       
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PFRPH4Y65"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-8PFRPH4Y65', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8PFRPH4Y65', { 'anonymize_ip': false });
 }
 </script>
 
