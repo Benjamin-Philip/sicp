@@ -71,19 +71,13 @@ How about applying the procedure 8 times? We just compose a function with
 
 ## Formulating a general rule
 
-Now, the most easiest thing to do is write a recursive $\mathcal{0}(n)$
-
 The above outlines a general rule. Let $n$ be the number of times a function is
 applied. Every time we apply a function created by compose on itself, we square
 $n$. This is very similar to how we computed exponents with `fast-expt` in
 Exercise 16. Let us have a value `new-f` for any new function that is passed
 every recursion. This gives us the following rule:
 
-1. If `n` is 1, we return
-```scheme
-(lamda (x) (f x))
-```
-
+1. If `n` is 1, we return the function itself
 2. Else if `n` is odd, we do 
 
 ```scheme
@@ -94,4 +88,20 @@ every recursion. This gives us the following rule:
 
 ## Implementing our rule
 
+With our rule in hand, we can just write a `cond` expression satisfying our rule:
 
+```scheme
+(define (repeated f n)
+  (cond ((= n 1) f)
+        ((even? n)(double (repeated f (/ n 2))))
+        (else (compose f (repeated f (- n 1))))))
+```
+
+Now we can test:
+
+```scheme
+> ((repeated square 2) 5)
+625
+```
+
+And rejoice that it works.

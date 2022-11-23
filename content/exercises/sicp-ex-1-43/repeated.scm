@@ -11,18 +11,11 @@
   (* x x))
 
 (define (repeated f n)
-  (repeated-recur f n))
+  (cond ((= n 1) f)
+        ((even? n)(double (repeated f (/ n 2))))
+        (else (compose f (repeated f (- n 1))))))
 
-(define (repeated-recur f n)
-  ((cond ((= n 1)(lambda (x)(f x)))
-         ((even? n)(double (repeated-recur f (/ n 2))))
-         ((odd? n)(compose f (repeated-recur f (- n 1))))
-         (else (lambda (x)(x))))))
-
-(define (r f n)
-  (rep-iter f n))
-
-(define (rep-iter f n)
+(define (repeated-iter f n)
   (if (= n 1)
       (lambda (x) (f x))
-      (compose (lambda (x) (f x)) (rep-iter f (- n 1)))))
+      (compose (lambda (x) (f x)) (repeated-iter f (- n 1)))))
