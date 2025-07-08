@@ -6,6 +6,14 @@ title = 'SICP'
   description = 'My latest stab at reading that legendary book by Gerald Jay Sussman and Hal Abelson.'
   themeColor = 'theme-base-08'
 
+[outputs]
+  home = ["HTML", "RSS", "ATOM"]
+  section = ["HTML", "RSS", "ATOM"]
+  taxonomy = ["HTML", "RSS", "ATOM"]
+
 [module]
   [[module.imports]]
     path = 'github.com/spf13/hyde'
+
+  [[module.imports]]
+    path = 'github.com/kaushalmodi/hugo-atom-feed'
