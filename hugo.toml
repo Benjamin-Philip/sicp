@@ -1,6 +1,7 @@
 baseURL = 'https://benjamin-philip.github.io/sicp/'
 languageCode = 'en-us'
 title = 'SICP'
+disqusShortname = "spf13"       # Force giscus
 
 [params]
   description = 'My latest stab at reading that legendary book by Gerald Jay Sussman and Hal Abelson.'
