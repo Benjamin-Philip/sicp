@@ -7,6 +7,13 @@ disqusShortname = "spf13"       # Force giscus
   description = 'My latest stab at reading that legendary book by Gerald Jay Sussman and Hal Abelson.'
   themeColor = 'theme-base-08'
 
+[Menus]
+  main = [
+    {Name = "Book", URL = "https://web.mit.edu/6.001/6.037/sicp.pdf"},
+    {Name = "MIT OCW", URL = "https://ocw.mit.edu/courses/6-001-structure-and-interpretation-of-computer-programs-spring-2005/"},
+    {Name = "GitHub", URL = "https://github.com/Benjamin-Philip/sicp"},
+  ]
+
 [outputs]
   home = ["HTML", "RSS", "ATOM"]
   section = ["HTML", "RSS", "ATOM"]
