@@ -1,0 +1,62 @@
+#+title: Exercise 1.3
+#+date: 2025-07-24
+#+weight: 103
+* The Question
+Define a procedure that takes three numbers as arguments and returns the sum of
+the squares of the two larger numbers.
+* The Answer
+** Prerequisites
+Since we need to square twice, we'll first define the procedure ~square~
+
+#+begin_src scheme
+(define (square x)
+  (* x x))
+
+(square 7)
+#+end_src
+
+#+RESULTS:
+: 49
+
+As well as ~max~ to find the max of two numbers:
+
+#+begin_src scheme
+(define (max a b)
+  (if (> a b) a b))
+#+end_src
+
+Testing ~max~:
+
+#+begin_src scheme
+(max 1 2)
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src scheme
+(max 2 1)
+#+end_src
+
+#+RESULTS:
+: 2
+
+** Final solution
+
+To define the procedure we must first find the 2 largest numbers. Then we
+individually square them, and sum the squares.
+
+Let's call the 3 numbers ~a~, ~b~ and ~c~. We can only compare a pair with ~max~, but if
+we call ~max~ twice repeating ~b~, we can establish a relationship between all 3
+numbers and compare them. Since we call ~max~ twice, we also get 2 results, which
+are the 2 largest numbers.
+
+Thus, we can use ~square~ and ~max~ to define the required procedure which we'll call
+~answer~:
+
+#+begin_src scheme
+(define (answer a b c)
+  (+ (square (max a b)) (square (max b c))))
+
+(answer 1 2 3)
+#+end_src
