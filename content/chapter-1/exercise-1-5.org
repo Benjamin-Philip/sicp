@@ -1,0 +1,39 @@
+#+title: Exercise 1.5
+#+date: 2025-07-24
+#+weight: 105
+* The Question
+Ben Bitdiddle has invented a test to determine whether the interpreter he is
+faced with is using applicative-order evaluation or normal-order evaluation. He
+defines the following two procedures:
+
+#+begin_src scheme :eval no
+(define (p) (p))
+(define (test x y)
+  (if (= x 0) 0 y))
+#+end_src
+
+Then he evaluates the expression:
+
+#+begin_src scheme
+(test 0 (p))
+#+end_src
+
+What behaviour will Ben observe with an interpreter that uses applicative-order
+evaluation? What behaviour will he observe with an interpreter that uses
+normal-order evaluation? Explain your answer. (Assume that the evaluation rule
+for the special form ~if~ is the same whether the interpreter is using normal or
+applicative order: the predicate expression is evaluated first, and the result
+determines whether to evaluate the consequent or the alternative expression.)
+* The Answer
+Applicative-order is essentially eager evaluation. The interpreter must evaluate
+an operand expression before evaluating the procedure it is being passed to.
+Likewise, normal-order is lazy evaluation. An expression is only evaluated once
+its value is absolutely necessary.
+
+The procedure ~p~ just calls itself. This means any time ~p~ is called, it calls itself forever, which may result in a time-out or a stack overflow.
+** Applicative-order
+The call ~(test 0 (p))~ therefore, requires the value of ~(p)~. Thus, the expression never evaluates.
+** Normal-order
+However, since ~x~ is equal to ~0~, a normal-order evaluation will return ~0~ because
+the value of ~y~ i.e. ~(p)~ is never required. Values other than ~0~ for ~x~ will never
+evaluate though.
