@@ -1,0 +1,18 @@
+#+title: Exercise 1.4
+#+date: 2025-07-24
+#+weight: 104
+* The Question
+Observe that our model of evaluation allows for combinations whose operators are
+compound expressions. Use this observation to describe the behaviour of the
+following procedure:
+
+#+begin_src scheme
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+#+end_src
+* The Answer
+
+Adding a positive number and subtracting a negative number has the same effect
+as adding the absolute value of a number. We are able to change the procedure as
+observed. Thus ~+~ is returned as the procedure if ~b~ is greater than 0, and ~-~
+otherwise.
