@@ -1,0 +1,20 @@
+#+title: Exercise 1.2
+#+date: 2025-07-24
+#+weight: 102
+* The Question
+Translate the following into prefix form:
+
+\[ \frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5}))}{3(6 - 2)(2 - 7)} \]
+* The Answer
+
+We can translate this by recursively grouping values by the outermost common
+operation. This means we start with the fraction, and divide the numerator and
+denominator. Then we add for the numerator and multiply for the denominator and
+so on and so forth. Going through with this exercise, we finally come up with:
+
+#+begin_src scheme
+(/ (+ 5 4 (- 2 (- 3 (+ 6 4/5)))) (* 3 (- 6 2) (- 2 7)))
+#+end_src
+
+#+RESULTS:
+: -37/150
