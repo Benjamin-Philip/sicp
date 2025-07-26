@@ -1,0 +1,56 @@
+#+title: Exercise 1.6
+#+date: 2025-07-26
+#+weight: 106
+#+PROPERTY: header-args:scheme :session *Scheme*
+
+* The Question
+Alyssa P. Hacker doesn't see why ~if~ needs to be provided as a special form. "Why
+can't I just define it as an ordinary procedure in terms of ~cond~?" she asks.
+Alyssa's friend Eva Lu Ator claims this can indeed be done, and she defines a
+new version of ~if~:
+
+#+begin_src scheme :results silent
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+#+end_src
+
+Eva demonstrates the program for Alyssa:
+
+#+begin_src scheme
+(new-if (= 2 3) 0 5)
+#+end_src
+
+#+RESULTS:
+: 5
+
+#+begin_src scheme
+(new-if (= 1 1) 0 5)
+#+end_src
+
+#+RESULTS:
+: 0
+
+Delighted, Alyssa uses ~new-if~ to rewrite the square-root program:
+
+#+begin_src scheme :eval no
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x) x)))
+#+end_src
+
+What happens when Alyssa attempts to use this to compute square roots? Explain.
+
+* The Answer
+
+The interpreter uses applicative-order in evaluating expressions. Since ~new-if~
+is a procedure, all arguments must be evaluated before ~new-if~ itself can be
+evaluated. This means /both/ ~then-clause~ and ~else-clause~ are run.
+
+~sqrt-iter~ is a recursive procedure, i.e. a procedure that calls itself. If the
+guess if good enough, it returns it, else it calls itself with an improved
+guess. However, in the case of Alyssa's implementation, ~sqrt-iter~ never returns
+because the recursion is in the ~else-clause~ in ~new-if~. Applicative-order causes
+the ~else-clause~ be evaluated, thus making ~sqrt-iter~ to called itself again and
+again within new-if.
