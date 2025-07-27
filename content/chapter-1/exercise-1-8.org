@@ -1,0 +1,64 @@
+title: Exercise 1.8
+#+date: 2025-07-27
+#+weight: 108
+#+PROPERTY: header-args:scheme :session *Scheme*
+* The Question
+Newton's method for cube roots is based on the fact that if \(y\) is an
+approximation to the cube root of \(x\), then a better approximation is given by
+the value
+\[\frac{x/y^2 + 2y}{3}\]
+Use this formula to implement a cube-root procedure analogous to the square-root
+procedure.
+* The Answer
+This exercise essentially requires us to rewrite the ~improve~ implementation from
+the previous exercise for cube roots:
+
+#+begin_src scheme :results silent
+(define (improve guess x)
+  (/ (+ (/ x (* guess guess)) (* 2 guess)) 3))
+#+end_src
+
+Copying the rest with few modifications, we get:
+
+#+begin_src scheme :results silent
+(define (cbrt x)
+  (cbrt-iter 1.0 (improve 1.0 x) x))
+
+(define (cbrt-iter guess new-guess x)
+  (if (good-enough? guess new-guess)
+      guess
+      (cbrt-iter new-guess (improve new-guess x) x)))
+
+(define (good-enough? guess new-guess)
+  (< (/ (abs (- new-guess guess)) guess) 0.0001))
+#+end_src
+
+Trying ~cbrt~ out:
+
+#+begin_src scheme
+(cbrt 8)
+#+end_src
+
+#+RESULTS:
+: 2.000004911675504
+
+#+begin_src scheme
+(cbrt 343)
+#+end_src
+
+#+RESULTS:
+: 7.000001795382107
+
+#+begin_src scheme
+(cbrt 0.33)
+#+end_src
+
+#+RESULTS:
+: 0.6910423430026196
+
+#+begin_src scheme
+(cbrt -8)
+#+end_src
+
+#+RESULTS:
+: -2.0
