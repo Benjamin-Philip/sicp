@@ -52,5 +52,5 @@ evaluated. This means /both/ ~then-clause~ and ~else-clause~ are run.
 guess if good enough, it returns it, else it calls itself with an improved
 guess. However, in the case of Alyssa's implementation, ~sqrt-iter~ never returns
 because the recursion is in the ~else-clause~ in ~new-if~. Applicative-order causes
-the ~else-clause~ be evaluated, thus making ~sqrt-iter~ to called itself again and
+the ~else-clause~ be evaluated, thus making ~sqrt-iter~ to call itself again and
 again within new-if.
