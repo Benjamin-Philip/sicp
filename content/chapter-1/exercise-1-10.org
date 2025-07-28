@@ -1,0 +1,407 @@
+#+title: Exercise 1.10
+#+date: 2025-07-28
+#+weight: 110
+#+PROPERTY: header-args:scheme :session *Scheme*
+* The Question
+The following procedure computes a mathematical function called Ackermann's
+function:
+
+#+begin_src scheme :eval no
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1) (A x (- y 1))))))
+#+end_src
+
+What are the values of the following expressions?
+
+#+begin_src scheme :eval no
+(A 1 10)
+(A 2 4)
+(A 3 3)
+#+end_src
+
+Consider the following procedures, where ~A~ is the procedure defined above:
+
+#+begin_src scheme :eval no
+(define (f n) (A 0 n))
+(define (g n) (A 1 n))
+(define (h n) (A 2 n))
+(define (k n) (* 5 n n))
+#+end_src
+
+Give concise mathematical definitions for the functions computed by the
+procedures ~f~, ~g~, and ~h~ for positive integer values of \(n\). For example, (k n)
+computes \(5n^2\) .
+* The Answer
+** Evaluating the expressions
+Let us first define ~A~ again:
+
+#+begin_src scheme :results silent
+(require racket/trace)
+
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1) (A x (- y 1))))))
+
+(trace A)
+#+end_src
+
+Now evaluating:
+
+#+begin_src scheme :results output
+(A 1 10)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+>(A 1 10)
+> (A 1 9)
+> >(A 1 8)
+> > (A 1 7)
+> > >(A 1 6)
+> > > (A 1 5)
+> > > >(A 1 4)
+> > > > (A 1 3)
+> > > > >(A 1 2)
+> > > > > (A 1 1)
+< < < < < 2
+> > > > >(A 0 2)
+< < < < <4
+> > > > (A 0 4)
+< < < < 8
+> > > >(A 0 8)
+< < < <16
+> > > (A 0 16)
+< < < 32
+> > >(A 0 32)
+< < <64
+> > (A 0 64)
+< < 128
+> >(A 0 128)
+< <256
+> (A 0 256)
+< 512
+>(A 0 512)
+<1024
+#+end_example
+
+The trace doesn't give us the picture as whole, unlike the substitution model. ~A~
+calls itself twice in the else clause. Once as a tail-call and once as parameter
+to the tail-call. As the chain expands (represented by ~>~ in the trace), we see
+these inner calls. Once the innermost call is evaluated, and a value is achieved
+(represented by ~<~ in the trace) we start to see values of the inner calls become
+substituted in the outer calls.
+
+Similarly:
+
+#+begin_src scheme :results output
+(A 2 4)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+>(A 2 4)
+> (A 2 3)
+> >(A 2 2)
+> > (A 2 1)
+< < 2
+> >(A 1 2)
+> > (A 1 1)
+< < 2
+> >(A 0 2)
+< <4
+> (A 1 4)
+> >(A 1 3)
+> > (A 1 2)
+> > >(A 1 1)
+< < <2
+> > (A 0 2)
+< < 4
+> >(A 0 4)
+< <8
+> (A 0 8)
+< 16
+>(A 1 16)
+> (A 1 15)
+> >(A 1 14)
+> > (A 1 13)
+> > >(A 1 12)
+> > > (A 1 11)
+> > > >(A 1 10)
+> > > > (A 1 9)
+> > > > >(A 1 8)
+> > > > > (A 1 7)
+> > > >[10] (A 1 6)
+> > > >[11] (A 1 5)
+> > > >[12] (A 1 4)
+> > > >[13] (A 1 3)
+> > > >[14] (A 1 2)
+> > > >[15] (A 1 1)
+< < < <[15] 2
+> > > >[14] (A 0 2)
+< < < <[14] 4
+> > > >[13] (A 0 4)
+< < < <[13] 8
+> > > >[12] (A 0 8)
+< < < <[12] 16
+> > > >[11] (A 0 16)
+< < < <[11] 32
+> > > >[10] (A 0 32)
+< < < <[10] 64
+> > > > > (A 0 64)
+< < < < < 128
+> > > > >(A 0 128)
+< < < < <256
+> > > > (A 0 256)
+< < < < 512
+> > > >(A 0 512)
+< < < <1024
+> > > (A 0 1024)
+< < < 2048
+> > >(A 0 2048)
+< < <4096
+> > (A 0 4096)
+< < 8192
+> >(A 0 8192)
+< <16384
+> (A 0 16384)
+< 32768
+>(A 0 32768)
+<65536
+#+end_example
+
+
+#+begin_src scheme :results output
+(A 3 3)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+>(A 3 3)
+> (A 3 2)
+> >(A 3 1)
+< <2
+> (A 2 2)
+> >(A 2 1)
+< <2
+> (A 1 2)
+> >(A 1 1)
+< <2
+> (A 0 2)
+< 4
+>(A 2 4)
+> (A 2 3)
+> >(A 2 2)
+> > (A 2 1)
+< < 2
+> >(A 1 2)
+> > (A 1 1)
+< < 2
+> >(A 0 2)
+< <4
+> (A 1 4)
+> >(A 1 3)
+> > (A 1 2)
+> > >(A 1 1)
+< < <2
+> > (A 0 2)
+< < 4
+> >(A 0 4)
+< <8
+> (A 0 8)
+< 16
+>(A 1 16)
+> (A 1 15)
+> >(A 1 14)
+> > (A 1 13)
+> > >(A 1 12)
+> > > (A 1 11)
+> > > >(A 1 10)
+> > > > (A 1 9)
+> > > > >(A 1 8)
+> > > > > (A 1 7)
+> > > >[10] (A 1 6)
+> > > >[11] (A 1 5)
+> > > >[12] (A 1 4)
+> > > >[13] (A 1 3)
+> > > >[14] (A 1 2)
+> > > >[15] (A 1 1)
+< < < <[15] 2
+> > > >[14] (A 0 2)
+< < < <[14] 4
+> > > >[13] (A 0 4)
+< < < <[13] 8
+> > > >[12] (A 0 8)
+< < < <[12] 16
+> > > >[11] (A 0 16)
+< < < <[11] 32
+> > > >[10] (A 0 32)
+< < < <[10] 64
+> > > > > (A 0 64)
+< < < < < 128
+> > > > >(A 0 128)
+< < < < <256
+> > > > (A 0 256)
+< < < < 512
+> > > >(A 0 512)
+< < < <1024
+> > > (A 0 1024)
+< < < 2048
+> > >(A 0 2048)
+< < <4096
+> > (A 0 4096)
+< < 8192
+> >(A 0 8192)
+< <16384
+> (A 0 16384)
+< 32768
+>(A 0 32768)
+<65536
+#+end_example
+
+As you can see the behaviour of Ackermann's function is quite erratic.
+** Defining the functions
+Turning our attention to the single-arity procedures given above.
+*** ~(f n)~
+#+begin_src scheme :results silent
+(define (f n) (A 0 n))
+(trace f)
+#+end_src
+
+This function directly evaluates to the second clause of ~A~, and doubles y:
+
+#+begin_src scheme :results output
+(f 2)
+#+end_src
+
+#+RESULTS:
+: >(f 2)
+: >(A 0 2)
+: <4
+
+#+begin_src scheme :results output
+(f 3)
+#+end_src
+
+#+RESULTS:
+: >(f 3)
+: >(A 0 3)
+: <6
+
+Therefore it can be defined as:
+
+\[f(n) = 2n\]
+*** ~(g n)~
+#+begin_src scheme :results silent
+(define (g n) (A 1 n))
+(trace g)
+#+end_src
+
+This function simplifies into ~(A 0 (A 1 (- n 1)))~. The outer call simplifies
+into ~(* 2 (A 1 (- n 1)))~. Thus, each call to ~(g n)~ is just double of ~(g (- n
+1))~, until the base case of ~(g 1)~ (i.e. ~(A 1 1)~) is reached, whereby the value 2
+is substituted. This is equivalent to:
+
+#+begin_src scheme :eval no
+(define (g n)
+  (if (= n 1)
+      2
+      (* 2 (g (- n 1)))))
+#+end_src
+
+Therefore, \(2\) is just multiplied \(n\) times:
+
+#+begin_src scheme :results output
+(g 4)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+>(g 4)
+>(A 1 4)
+> (A 1 3)
+> >(A 1 2)
+> > (A 1 1)
+< < 2
+> >(A 0 2)
+< <4
+> (A 0 4)
+< 8
+>(A 0 8)
+<16
+#+end_example
+
+
+#+begin_src scheme :results output
+(g 6)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+>(g 6)
+>(A 1 6)
+> (A 1 5)
+> >(A 1 4)
+> > (A 1 3)
+> > >(A 1 2)
+> > > (A 1 1)
+< < < 2
+> > >(A 0 2)
+< < <4
+> > (A 0 4)
+< < 8
+> >(A 0 8)
+< <16
+> (A 0 16)
+< 32
+>(A 0 32)
+<64
+#+end_example
+
+We can define \(g(n)\) as:
+
+\[g(n) = 2^n\]
+*** ~(h n)~
+#+begin_src scheme :results silent
+(define (h n) (A 2 n))
+#+end_src
+
+We can simplify ~(h n)~ in terms of ~(g n)~ and itself:
+
+#+begin_src scheme :eval no
+(define (h n)
+  (if (= n 1)
+      2
+      (g (h (- n 1)))))
+#+end_src
+
+This means ~(g n)~ is chained till \(n\) equal \(1\). In other words, \(2\) is repeatedly exponentiated (i.e. [[https://en.wikipedia.org/wiki/Tetration][tetrated]]) \(n\) times:
+
+#+begin_src scheme
+(h 1)
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src scheme
+(h 2)
+#+end_src
+
+#+RESULTS:
+: 4
+
+#+begin_src scheme
+(h 3)
+#+end_src
+
+#+RESULTS:
+: 16
+
+Using [[https://en.wikipedia.org/wiki/Knuth%27s_up_arrow_notation][Knuth's up arrow notation]], we can define \(h(n)\) as:
+
+\[h(n) = 2 \uparrow\uparrow n\]
