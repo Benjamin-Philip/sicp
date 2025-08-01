@@ -1,6 +1,6 @@
 #+title: Exercise 1.12
 #+date: 2025-07-28
-#+weight: 111
+#+weight: 112
 #+PROPERTY: header-args:scheme :session *Scheme*
 * The Question
 The following pattern of numbers is called /Pascal's triangle/.
