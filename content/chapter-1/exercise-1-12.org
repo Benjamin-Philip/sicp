@@ -1,0 +1,84 @@
+#+title: Exercise 1.12
+#+date: 2025-07-28
+#+weight: 111
+#+PROPERTY: header-args:scheme :session *Scheme*
+* The Question
+The following pattern of numbers is called /Pascal's triangle/.
+
+#+begin_example
+        1
+      1   1
+    1   2   1
+  1   3   3   1
+1   4   6   4   1
+      . . .
+#+end_example
+
+The numbers at the edge of the triangle are all 1, and each number inside the
+triangle is the sum of the two numbers above it. Write a procedure that computes
+elements of Pascal's triangle by means of a recursive process.
+* Thoughts
+#+begin_quote
+Write a procedure that computes elements of Pascal's triangle by means of a
+recursive process.
+#+end_quote
+
+This sentence can interpreted to mean that we have to write a procedure to
+compute the entire triangle. That is not so. The task at hand is to compute a
+/single element/ of the triangle, given the row and column of the element.
+
+* The Answer
+We are given 2 conditions:
+
+1. The numbers at the edge of the triangle are all 1
+2. each number inside the triangle is the sum of the two numbers above it.
+
+Let us further examine the second case. /Which/ are the two numbers above an
+element? The row is obvious, but what of the columns? Left-justifying the
+triangle, this becomes clearer:
+
+#+begin_example
+1
+1   1
+1   2   1
+1   3   3   1
+1   4   6   4   1
+.   .   .   .   .   .
+#+end_example
+
+The two numbers are the elements in the previous column and that in the same column in the row above.
+
+This lends itself to the two cases within our procedure ~p~:
+
+1. ~(p n 0)~ or ~(p n n)~ is \(1\)
+2. ~(p row col)~ is ~(+ (p (- row 1) (- col 1)) (p (- row 1) col))~
+
+#+begin_src scheme :results silent
+(define (p row col)
+  (if (or (= col 0) (= row col))
+      1
+      (+ (p (- row 1) (- col 1)) (p (- row 1) col))))
+#+end_src
+
+Trying it out:
+
+#+begin_src scheme
+(p 0 0)
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src scheme
+(p 3 2)
+#+end_src
+
+#+RESULTS:
+: 3
+
+#+begin_src scheme
+(p 4 2)
+#+end_src
+
+#+RESULTS:
+: 6
